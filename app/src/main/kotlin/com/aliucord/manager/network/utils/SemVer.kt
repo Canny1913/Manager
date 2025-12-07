@@ -9,8 +9,10 @@ import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 /**
  * Parses a Semantic version in the format of `v1.0.0` or `1.0.0`.
@@ -84,8 +86,8 @@ data class SemVer(
 
         fun convertLongToTime(time: Long): String {
             val date = Date(time)
-            val format = SimpleDateFormat.getDateTimeInstance()
-            return format.format(date)
+            val format = SimpleDateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault())
+            return format.format(date).replace(" ", "-")
         }
     }
 
