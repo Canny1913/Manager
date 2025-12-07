@@ -59,14 +59,14 @@ data class SemVer(
         }
     }
 
-    fun toFriendlyString(): String {
-        return if (timestamp != 0L) {
-            val time = convertLongToTime(timestamp)
-            "$time-$major.$minor.$patch"
-        } else {
-            "$major.$minor.$patch"
-        }
+    fun toVersionString(): String {
+        return "$major.$minor.$patch"
     }
+
+    fun getTimestamp(): String {
+        return convertLongToTime(timestamp)
+    }
+
     override fun hashCode(): Int {
         var result = major
         result = 31 * result + minor
@@ -93,8 +93,8 @@ data class SemVer(
 
         fun convertLongToTime(time: Long): String {
             val date = Date(time)
-            val format = SimpleDateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault())
-            return format.format(date).replace(" ", "-")
+            val format = SimpleDateFormat.getDateTimeInstance()
+            return format.format(date)
         }
     }
 
