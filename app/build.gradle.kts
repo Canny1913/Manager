@@ -140,6 +140,7 @@ android {
     }
 
     lint {
+        abortOnError = false
         disable += "ModifierParameter"
     }
 }

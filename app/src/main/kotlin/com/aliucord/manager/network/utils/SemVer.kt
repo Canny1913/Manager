@@ -9,6 +9,8 @@ import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import java.text.SimpleDateFormat
+import java.util.Date
 
 /**
  * Parses a Semantic version in the format of `v1.0.0` or `1.0.0`.
@@ -21,6 +23,7 @@ data class SemVer(
     val major: Int,
     val minor: Int,
     val patch: Int,
+    val timestamp: Long,
 ) : Comparable<SemVer>, Parcelable {
     override fun compareTo(other: SemVer): Int {
         var cmp = 0
@@ -29,6 +32,8 @@ data class SemVer(
         if (0 != minor.compareTo(other.minor).also { cmp = it })
             return cmp
         if (0 != patch.compareTo(other.patch).also { cmp = it })
+            return cmp
+        if (0 != timestamp.compareTo(other.timestamp).also { cmp = it })
             return cmp
 
         return 0
@@ -40,11 +45,17 @@ data class SemVer(
 
         return ver.major == major &&
             ver.minor == minor &&
-            ver.patch == patch
+            ver.patch == patch &&
+            ver.timestamp == timestamp
     }
 
     override fun toString(): String {
-        return "$major.$minor.$patch"
+        return if (timestamp != 0L) {
+            val time = convertLongToTime(timestamp)
+            "$time-$major.$minor.$patch"
+        } else {
+            "$major.$minor.$patch"
+        }
     }
 
     override fun hashCode(): Int {
@@ -59,16 +70,22 @@ data class SemVer(
             ?: throw IllegalArgumentException("Invalid semver string $version")
 
         fun parseOrNull(version: String): SemVer? {
-            val parts = version.removePrefix("v").split(".")
+            val parts = version.removePrefix("v").split("_", ".")
+            var i = 0
 
-            if (parts.size != 3)
-                return null
+            if (parts.size !in 3..4) return null
+            val timestamp = if (parts.size == 4) parts[i++].toLongOrNull() ?: return null else 0
+            val major = parts[i++].toIntOrNull() ?: return null
+            val minor = parts[i++].toIntOrNull() ?: return null
+            val patch = parts[i++].toIntOrNull() ?: return null
 
-            val major = parts[0].toIntOrNull() ?: return null
-            val minor = parts[1].toIntOrNull() ?: return null
-            val patch = parts[2].toIntOrNull() ?: return null
+            return SemVer(major, minor, patch, timestamp)
+        }
 
-            return SemVer(major, minor, patch)
+        fun convertLongToTime(time: Long): String {
+            val date = Date(time)
+            val format = SimpleDateFormat.getDateTimeInstance()
+            return format.format(date)
         }
     }
 

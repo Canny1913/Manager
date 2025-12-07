@@ -176,7 +176,8 @@ class MainActivity : ComponentActivity() {
                     mainThread { showToast(R.string.intent_import_component_failure) }
                 }
 
-                mainThread { showToast(R.string.intent_import_component_success, file.name) }
+                // Annoying. Check above serves the same purpose.
+                // mainThread { showToast(R.string.intent_import_component_success, file.name) }
             }
 
             else -> {

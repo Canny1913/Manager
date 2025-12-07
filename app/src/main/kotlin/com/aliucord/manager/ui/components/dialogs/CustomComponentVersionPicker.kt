@@ -96,7 +96,7 @@ fun CustomComponentVersionPicker(
                             )
 
                             Text(
-                                text = "v$version",
+                                text = "$version",
                                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
                             )
 
