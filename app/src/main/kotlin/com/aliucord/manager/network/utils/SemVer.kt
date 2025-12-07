@@ -53,13 +53,20 @@ data class SemVer(
 
     override fun toString(): String {
         return if (timestamp != 0L) {
+            "${timestamp}_$major.$minor.$patch"
+        } else {
+            "$major.$minor.$patch"
+        }
+    }
+
+    fun toFriendlyString(): String {
+        return if (timestamp != 0L) {
             val time = convertLongToTime(timestamp)
             "$time-$major.$minor.$patch"
         } else {
             "$major.$minor.$patch"
         }
     }
-
     override fun hashCode(): Int {
         var result = major
         result = 31 * result + minor

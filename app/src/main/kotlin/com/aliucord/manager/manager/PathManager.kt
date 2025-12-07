@@ -93,9 +93,9 @@ class PathManager(
     /**
      * Resolve a specific path for a cached injector.
      */
-    fun cachedInjectorDex(version: SemVer, custom: Boolean = false) = patchingDownloadDir
+    fun cachedInjectorDex(version: SemVer, custom: Boolean = false) = (if (custom) customComponentsDir else patchingDownloadDir)
         .resolve("injector").apply { mkdirs() }
-        .resolve("$version${if (custom) ".custom" else ""}.dex")
+        .resolve("$version.dex")
 
     /**
      * Get all the versions of custom injector builds.
@@ -112,9 +112,9 @@ class PathManager(
     /**
      * Resolve a specific path for a versioned smali patches archive.
      */
-    fun cachedSmaliPatches(version: SemVer, custom: Boolean = false) = patchingDownloadDir
+    fun cachedSmaliPatches(version: SemVer, custom: Boolean = false) = (if (custom) customComponentsDir else patchingDownloadDir)
         .resolve("patches").apply { mkdirs() }
-        .resolve("$version${if (custom) ".custom" else ""}.zip")
+        .resolve("$version.zip")
 
     /**
      * Get all the versions of custom smali bundles.
