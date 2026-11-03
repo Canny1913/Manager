@@ -43,8 +43,8 @@ class AliucordGithubService(
         const val ORG = "Aliucord"
         const val MANAGER_REPO = "Manager"
 
-        const val DATA_JSON_URL = "https://builds.aliucord.com/data.json"
+        const val DATA_JSON_URL = "https://cdn.jsdelivr.net/gh/Canny1913/Aliucore@builds/data.json"
 
-        private const val CONTRIBUTORS_JSON_URL = "https://builds.aliucord.com/contributors.json"
+        private const val CONTRIBUTORS_JSON_URL = "https://cdn.jsdelivr.net/gh/Canny1913/Aliucore@builds/contributors.json"
     }
 }

@@ -51,6 +51,6 @@ class DownloadPatchesStep(
     }
 
     private companion object {
-        const val URL = "https://builds.aliucord.com/patches.zip"
+        const val URL = "https://cdn.jsdelivr.net/gh/Canny1913/Aliucore@builds/patches.zip"
     }
 }

@@ -57,6 +57,6 @@ class DownloadInjectorStep(
     }
 
     private companion object {
-        const val URL = "https://builds.aliucord.com/Injector.dex"
+        const val URL = "https://cdn.jsdelivr.net/gh/Canny1913/Aliucore@builds/Injector.dex"
     }
 }
