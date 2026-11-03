@@ -30,6 +30,7 @@ android {
         targetSdk = 36
         versionCode = 10_03_00
         versionName = "1.3.0"
+        applicationId = "com.aliucore.manager"
 
         vectorDrawables {
             useSupportLibrary = true
