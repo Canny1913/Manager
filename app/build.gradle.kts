@@ -28,8 +28,8 @@ android {
     defaultConfig {
         minSdk = 24
         targetSdk = 36
-        versionCode = 10_04_00
-        versionName = "1.4.0"
+        versionCode = 10_04_01
+        versionName = "1.4.1"
         applicationId = "com.aliucore.manager"
 
         vectorDrawables {
